@@ -64,6 +64,18 @@ Consequences:
 - Repo lives on a VirtualBox `vboxsf` shared folder (no symlinks, root-owned):
   - `npm install` must use `--no-bin-links`.
   - git has `core.fileMode false` set locally to avoid spurious exec-bit diffs.
+- Local npm is 12.x, which **does not run dependency install scripts**. This
+  breaks `npm run test:integration` for any adapter (not our code): in the
+  harness dir `/tmp/test-iobroker.bluetti-ble` js-controller's `install` script
+  (`iobroker.js setup first`, creates `iobroker-data/`) and esbuild's binary
+  download are skipped. Symptoms: `iobroker-data/iobroker.json: ENOENT`, then
+  `esbuild: Failed to install correctly`. Workaround after a failing first run:
+  ```bash
+  cd /tmp/test-iobroker.bluetti-ble/node_modules/iobroker.js-controller && node iobroker.js setup first
+  cd /tmp/test-iobroker.bluetti-ble/node_modules/esbuild && node install.js
+  ```
+  then rerun `npm run test:integration`. CI uses the Node-bundled npm (< 12),
+  so it should be unaffected.
 
 ## Project
 
