@@ -1,6 +1,6 @@
 {
   "common": {
-    "name": "bluetti-battery",
+    "name": "bluetti-ble",
     "version": "0.1.1",
     "news": {
       "0.1.1": {
@@ -31,30 +31,30 @@
       }
     },
     "titleLang": {
-      "en": "bluetti battery control",
-      "de": "Bluetti Batteriesteuerung",
-      "ru": "контроль заряда батареи bluetti",
-      "pt": "controle de bateria bluetti",
-      "nl": "bluetti batterijcontrole",
-      "fr": "contrôle de batterie bluetti",
-      "it": "controllo batteria bluetti",
-      "es": "control de bateria bluetti",
-      "pl": "kontrola baterii bluetti",
-      "uk": "контроль батареї bluetti",
-      "zh-cn": "bluetti电池控制"
+      "en": "Bluetti via Bluetooth (BLE)",
+      "de": "Bluetti über Bluetooth (BLE)",
+      "ru": "Bluetti через Bluetooth (BLE)",
+      "pt": "Bluetti via Bluetooth (BLE)",
+      "nl": "Bluetti via Bluetooth (BLE)",
+      "fr": "Bluetti via Bluetooth (BLE)",
+      "it": "Bluetti tramite Bluetooth (BLE)",
+      "es": "Bluetti por Bluetooth (BLE)",
+      "pl": "Bluetti przez Bluetooth (BLE)",
+      "uk": "Bluetti через Bluetooth (BLE)",
+      "zh-cn": "Bluetti 蓝牙 (BLE)"
     },
     "desc": {
-      "en": "monitor and control bluetti battery",
-      "de": "Bluetti-Batterie überwachen und steuern",
-      "ru": "мониторинг и управление батареей Bluetti",
-      "pt": "monitorizar e controlar a bateria Bluetti",
-      "nl": "Bluetti-batterij bewaken en bedienen",
-      "fr": "surveiller et contrôler la batterie Bluetti",
-      "it": "monitora e controlla la batteria Bluetti",
-      "es": "monitorizar y controlar la batería Bluetti",
-      "pl": "monitoruj i steruj baterią Bluetti",
-      "uk": "моніторинг і керування батареєю Bluetti",
-      "zh-cn": "监控和控制 Bluetti 电池"
+      "en": "monitor and control Bluetti locally via Bluetooth",
+      "de": "Bluetti lokal per Bluetooth überwachen und steuern",
+      "ru": "локальный мониторинг и управление Bluetti через Bluetooth",
+      "pt": "monitorizar e controlar a Bluetti localmente via Bluetooth",
+      "nl": "Bluetti lokaal via Bluetooth bewaken en bedienen",
+      "fr": "surveiller et contrôler Bluetti localement via Bluetooth",
+      "it": "monitora e controlla Bluetti localmente tramite Bluetooth",
+      "es": "monitorizar y controlar Bluetti localmente por Bluetooth",
+      "pl": "lokalnie monitoruj i steruj Bluetti przez Bluetooth",
+      "uk": "локальний моніторинг і керування Bluetti через Bluetooth",
+      "zh-cn": "通过蓝牙本地监控和控制 Bluetti"
     },
     "authors": [
       "Garfonso <garfonso@mobo.info>"
@@ -73,10 +73,10 @@
       "license": "MIT"
     },
     "platform": "Javascript/Node.js",
-    "icon": "bluetti-battery.png",
+    "icon": "bluetti-ble.png",
     "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/Garfonso/ioBroker.bluetti-battery/main/admin/bluetti-battery.png",
-    "readme": "https://github.com/Garfonso/ioBroker.bluetti-battery/blob/main/README.md",
+    "extIcon": "https://raw.githubusercontent.com/Garfonso/ioBroker.bluetti-ble/main/admin/bluetti-ble.png",
+    "readme": "https://github.com/Garfonso/ioBroker.bluetti-ble/blob/main/README.md",
     "loglevel": "info",
     "tier": 3,
     "mode": "daemon",

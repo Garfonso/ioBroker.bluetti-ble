@@ -1,5 +1,5 @@
 {
-	"bluetti-battery adapter settings": "bluetti-battery的适配器设置",
+	"bluetti-ble adapter settings": "bluetti-ble的适配器设置",
 	"MAC address": "MAC 地址",
 	"Bluetooth MAC address of the device, e.g. AA:BB:CC:DD:EE:FF": "设备的蓝牙 MAC 地址，例如 AA:BB:CC:DD:EE:FF",
 	"Device type": "设备类型",

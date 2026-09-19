@@ -1,15 +1,15 @@
-<img src="admin/bluetti-battery.png" alt="Logo" width="120" align="right" />
+<img src="admin/bluetti-ble.png" alt="Logo" width="120" align="right" />
 
-# ioBroker.bluetti-battery
+# ioBroker.bluetti-ble
 
-[![NPM version](https://img.shields.io/npm/v/iobroker.bluetti-battery.svg)](https://www.npmjs.com/package/iobroker.bluetti-battery)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.bluetti-battery.svg)](https://www.npmjs.com/package/iobroker.bluetti-battery)
-![Number of Installations](https://iobroker.live/badges/bluetti-battery-installed.svg)
-![Current version in stable repository](https://iobroker.live/badges/bluetti-battery-stable.svg)
+[![NPM version](https://img.shields.io/npm/v/iobroker.bluetti-ble.svg)](https://www.npmjs.com/package/iobroker.bluetti-ble)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.bluetti-ble.svg)](https://www.npmjs.com/package/iobroker.bluetti-ble)
+![Number of Installations](https://iobroker.live/badges/bluetti-ble-installed.svg)
+![Current version in stable repository](https://iobroker.live/badges/bluetti-ble-stable.svg)
 
-[![NPM](https://nodei.co/npm/iobroker.bluetti-battery.png?downloads=true)](https://nodei.co/npm/iobroker.bluetti-battery/)
+[![NPM](https://nodei.co/npm/iobroker.bluetti-ble.png?downloads=true)](https://nodei.co/npm/iobroker.bluetti-ble/)
 
-**Tests:** ![Test and Release](https://github.com/Garfonso/ioBroker.bluetti-battery/workflows/Test%20and%20Release/badge.svg)
+**Tests:** ![Test and Release](https://github.com/Garfonso/ioBroker.bluetti-ble/workflows/Test%20and%20Release/badge.svg)
 
 > **Disclaimer:** This is an independent, community-developed adapter. It is
 > **not** affiliated with, endorsed by, or supported by Bluetti / PowerOak.
@@ -17,7 +17,14 @@
 > owners and are used here only to describe device compatibility. Use at your
 > own risk — the authors are not responsible for any damage to your devices.
 
-## bluetti-battery adapter for ioBroker
+## bluetti-ble adapter for ioBroker
+
+> **Renamed:** this adapter was previously published as `bluetti-battery`
+> (npm `iobroker.bluetti-battery`). It was renamed to `bluetti-ble` to avoid
+> confusion with the separate cloud-based `bluetti` adapter. If you used
+> `bluetti-battery`, install `bluetti-ble`, copy your settings (MAC address,
+> device type, …) into the new instance, update scripts/visualizations from
+> `bluetti-battery.0.*` to `bluetti-ble.0.*`, then remove the old adapter.
 
 Monitor and control Bluetti power stations / batteries over Bluetooth Low Energy
 (MODBUS-over-BLE). This is a Node.js/TypeScript port of the protocol from
@@ -98,13 +105,13 @@ From the JavaScript adapter / a script (replace `0` with your instance):
 
 ```js
 // Read specific registers
-sendTo('bluetti-battery.0', 'readRegisters', { address: 3019, quantity: 1 }, console.log);
+sendTo('bluetti-ble.0', 'readRegisters', { address: 3019, quantity: 1 }, console.log);
 
 // Scan a range (readable registers only)
-sendTo('bluetti-battery.0', 'scanRange', { start: 3000, end: 3120 }, console.log);
+sendTo('bluetti-ble.0', 'scanRange', { start: 3000, end: 3120 }, console.log);
 
 // Write a register to test a control (use with care)
-sendTo('bluetti-battery.0', 'writeRegister', { address: 3019, value: 10 }, console.log);
+sendTo('bluetti-ble.0', 'writeRegister', { address: 3019, value: 10 }, console.log);
 ```
 
 Workflow to find a setting: `scanRange` the likely control area (around
@@ -118,6 +125,9 @@ setting before it gets a named state.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (Garfonso/Claude) renamed adapter from `bluetti-battery` to `bluetti-ble` to distinguish it from the cloud-based `bluetti` adapter
+
 ### 0.1.1 (2026-06-23)
 * (Garfonso/Claude) add very experimental support for APEX 300.
 

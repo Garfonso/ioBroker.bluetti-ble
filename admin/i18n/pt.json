@@ -1,5 +1,5 @@
 {
-	"bluetti-battery adapter settings": "Configurações do adaptador para bluetti-battery",
+	"bluetti-ble adapter settings": "Configurações do adaptador para bluetti-ble",
 	"MAC address": "Endereço MAC",
 	"Bluetooth MAC address of the device, e.g. AA:BB:CC:DD:EE:FF": "Endereço MAC Bluetooth do dispositivo, ex.: AA:BB:CC:DD:EE:FF",
 	"Device type": "Tipo de dispositivo",

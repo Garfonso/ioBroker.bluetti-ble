@@ -17,7 +17,7 @@
 - Run the ioBroker repo checker periodically and **before every release**; fix
   all reported errors:
   ```bash
-  npx @iobroker/repochecker@latest https://github.com/Garfonso/ioBroker.bluetti-battery/ --local
+  npx @iobroker/repochecker@latest https://github.com/Garfonso/ioBroker.bluetti-ble/ --local
   ```
   It queries the GitHub API, so it needs network access and a pushed `main`.
 

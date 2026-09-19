@@ -1,5 +1,5 @@
 {
-  "name": "iobroker.bluetti-battery",
+  "name": "iobroker.bluetti-ble",
   "version": "0.1.1",
   "description": "bluetti",
   "author": {
@@ -7,7 +7,7 @@
     "email": "garfonso@mobo.info"
   },
   "contributors": [],
-  "homepage": "https://github.com/Garfonso/ioBroker.bluetti-battery",
+  "homepage": "https://github.com/Garfonso/ioBroker.bluetti-ble",
   "license": "MIT",
   "keywords": [
     "ioBroker",
@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Garfonso/ioBroker.bluetti-battery.git"
+    "url": "https://github.com/Garfonso/ioBroker.bluetti-ble.git"
   },
   "engines": {
     "node": ">= 22"
@@ -67,10 +67,10 @@
     "test": "npm run test:ts && npm run test:package",
     "translate": "translate-adapter",
     "release": "release-script",
-    "check:repo": "npx @iobroker/repochecker https://github.com/Garfonso/ioBroker.bluetti-battery --local"
+    "check:repo": "npx @iobroker/repochecker https://github.com/Garfonso/ioBroker.bluetti-ble --local"
   },
   "bugs": {
-    "url": "https://github.com/Garfonso/ioBroker.bluetti-battery/issues"
+    "url": "https://github.com/Garfonso/ioBroker.bluetti-ble/issues"
   },
   "readmeFilename": "README.md"
 }

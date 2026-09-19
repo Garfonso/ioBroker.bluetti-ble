@@ -1,5 +1,5 @@
 /*
- * ioBroker Bluetti battery adapter.
+ * ioBroker Bluetti BLE adapter.
  * MODBUS-over-Bluetooth port of warhammerkid/bluetti_mqtt.
  */
 import * as utils from '@iobroker/adapter-core';
@@ -17,7 +17,7 @@ const PACK_SWITCH_DELAY_MS = 3000;
 /** Consecutive failed poll cycles tolerated before info.connection drops to false. */
 const POLL_FAILURES_BEFORE_DISCONNECT = 3;
 
-class BluettiBattery extends utils.Adapter {
+class BluettiBle extends utils.Adapter {
     private client?: BluetoothClient;
     private device?: DeviceDefinition;
     private pollTimer?: ioBroker.Timeout;
@@ -32,7 +32,7 @@ class BluettiBattery extends utils.Adapter {
     private readonly createdPacks = new Set<number>();
 
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
-        super({ ...options, name: 'bluetti-battery' });
+        super({ ...options, name: 'bluetti-ble' });
         this.on('ready', this.onReady.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
         this.on('message', this.onMessage.bind(this));
@@ -543,7 +543,7 @@ function stateMeta(field: DeviceField, writable: boolean): StateMeta {
 }
 
 if (require.main !== module) {
-    module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new BluettiBattery(options);
+    module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new BluettiBle(options);
 } else {
-    (() => new BluettiBattery())();
+    (() => new BluettiBle())();
 }
