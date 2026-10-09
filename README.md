@@ -89,10 +89,30 @@ If the handshake completes (`Encrypted handshake complete` in the log), use the
 | Device type | `auto` detects from the advertised BLE name, or pick the model manually. |
 | Polling interval | Seconds between reads (default 10). |
 | Poll per-pack data | Also read per-pack cell voltages etc. (slower). |
+| Encryption | `auto` follows the device profile; force `on`/`off` for newer encrypted units. |
+| Allow writing to the device | `auto` (default), `on` or `off` - see below. |
 
 States that map to writable MODBUS registers (e.g. `ac_output_on`,
 `dc_output_on`, `ups_mode`) are created with write access; setting them sends a
 `WriteSingleRegister` command to the device.
+
+#### Read-only / safe mode
+
+The adapter never writes on its own; it only writes when you change a writable
+state, when it selects a battery pack for per-pack polling (register 3006), or
+when you send a `writeRegister` message. **Allow writing to the device**
+controls all three:
+
+| Mode | Behaviour |
+|------|-----------|
+| `auto` (default) | Writing is allowed for the verified profiles, but an **experimental** profile (`AC180`, `AC2A`, `AC70`, `Apex 300`, `V2`) stays **read-only**, because its registers are reverse-engineered and partly guessed. |
+| `on` | Writing always allowed. With an experimental profile you get a warning. |
+| `off` | Hard read-only safe mode: nothing is ever written. |
+
+In read-only mode the writable states are created without write access,
+`writeRegister` is refused, and per-pack polling is skipped (selecting a pack
+needs a write). Reading - including `readRegisters` and `scanRange` - always
+works, so you can map a new device safely before enabling any control.
 
 ### Finding undocumented registers / controls
 
@@ -126,6 +146,7 @@ setting before it gets a named state.
 	### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+* (Garfonso/Claude) added a read-only / safe mode: experimental device profiles are no longer written to by default
 * (Garfonso/Claude) renamed adapter from `bluetti-battery` to `bluetti-ble` to distinguish it from the cloud-based `bluetti` adapter
 
 ### 0.1.1 (2026-06-23)

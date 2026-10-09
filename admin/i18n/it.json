@@ -8,5 +8,7 @@
 	"Poll per-pack battery data": "Interroga i dati per pacco batteria",
 	"Reads cell voltages and per-pack details (slower)": "Legge le tensioni delle celle e i dettagli per pacco (più lento)",
 	"Encryption (v2 devices)": "Crittografia (dispositivi v2)",
-	"auto follows the device profile; force on/off for newer encrypted units": "auto segue il profilo del dispositivo; forza on/off per i dispositivi crittografati più recenti"
+	"auto follows the device profile; force on/off for newer encrypted units": "auto segue il profilo del dispositivo; forza on/off per i dispositivi crittografati più recenti",
+	"Allow writing to the device": "Consenti la scrittura sul dispositivo",
+	"auto = read-only for experimental device profiles; off = never write (safe mode)": "auto = sola lettura per i profili sperimentali; off = non scrivere mai (modalità sicura)"
 }

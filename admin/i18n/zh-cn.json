@@ -8,5 +8,7 @@
 	"Poll per-pack battery data": "轮询每个电池组数据",
 	"Reads cell voltages and per-pack details (slower)": "读取电芯电压和每组详情（较慢）",
 	"Encryption (v2 devices)": "加密（v2 设备）",
-	"auto follows the device profile; force on/off for newer encrypted units": "auto 跟随设备配置；对较新的加密设备可强制开/关"
+	"auto follows the device profile; force on/off for newer encrypted units": "auto 跟随设备配置；对较新的加密设备可强制开/关",
+	"Allow writing to the device": "允许写入设备",
+	"auto = read-only for experimental device profiles; off = never write (safe mode)": "auto = 实验性设备配置仅读取；off = 从不写入（安全模式）"
 }

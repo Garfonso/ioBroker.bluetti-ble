@@ -138,6 +138,7 @@ export function buildV2Device(type = 'V2'): DeviceDefinition {
         packNumMax: 1,
         struct: s,
         encrypted: true,
+        experimental: true,
         pollingCommands: [
             new ReadHoldingRegisters(HOME_DATA, 67),
             new ReadHoldingRegisters(INV_GRID_INFO, 31),

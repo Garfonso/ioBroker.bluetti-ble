@@ -8,5 +8,7 @@
 	"Poll per-pack battery data": "Опрашивать данные по каждому блоку батареи",
 	"Reads cell voltages and per-pack details (slower)": "Читает напряжения ячеек и данные по блокам (медленнее)",
 	"Encryption (v2 devices)": "Шифрование (устройства v2)",
-	"auto follows the device profile; force on/off for newer encrypted units": "auto использует профиль устройства; включите/выключите для новых зашифрованных устройств"
+	"auto follows the device profile; force on/off for newer encrypted units": "auto использует профиль устройства; включите/выключите для новых зашифрованных устройств",
+	"Allow writing to the device": "Разрешить запись в устройство",
+	"auto = read-only for experimental device profiles; off = never write (safe mode)": "auto = только чтение для экспериментальных профилей; off = никогда не писать (безопасный режим)"
 }

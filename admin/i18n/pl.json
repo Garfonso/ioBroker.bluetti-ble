@@ -8,5 +8,7 @@
 	"Poll per-pack battery data": "Odpytuj dane poszczególnych pakietów baterii",
 	"Reads cell voltages and per-pack details (slower)": "Odczytuje napięcia ogniw i szczegóły pakietów (wolniej)",
 	"Encryption (v2 devices)": "Szyfrowanie (urządzenia v2)",
-	"auto follows the device profile; force on/off for newer encrypted units": "auto podąża za profilem urządzenia; wymuś wł./wył. dla nowszych szyfrowanych urządzeń"
+	"auto follows the device profile; force on/off for newer encrypted units": "auto podąża za profilem urządzenia; wymuś wł./wył. dla nowszych szyfrowanych urządzeń",
+	"Allow writing to the device": "Zezwól na zapis do urządzenia",
+	"auto = read-only for experimental device profiles; off = never write (safe mode)": "auto = tylko odczyt dla profili eksperymentalnych; off = nigdy nie zapisuj (tryb bezpieczny)"
 }

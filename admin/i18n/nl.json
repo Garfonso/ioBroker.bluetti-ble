@@ -8,5 +8,7 @@
 	"Poll per-pack battery data": "Batterijgegevens per pack ophalen",
 	"Reads cell voltages and per-pack details (slower)": "Leest celspanningen en details per pack (langzamer)",
 	"Encryption (v2 devices)": "Versleuteling (v2-apparaten)",
-	"auto follows the device profile; force on/off for newer encrypted units": "auto volgt het apparaatprofiel; forceer aan/uit voor nieuwere versleutelde apparaten"
+	"auto follows the device profile; force on/off for newer encrypted units": "auto volgt het apparaatprofiel; forceer aan/uit voor nieuwere versleutelde apparaten",
+	"Allow writing to the device": "Schrijven naar het apparaat toestaan",
+	"auto = read-only for experimental device profiles; off = never write (safe mode)": "auto = alleen lezen bij experimentele profielen; off = nooit schrijven (veilige modus)"
 }

@@ -84,6 +84,16 @@ describe('new device profiles', () => {
         expect(d.struct.writableField('charging_mode')?.address).to.equal(2020);
     });
 
+    it('marks unverified profiles as experimental (read-only in auto write mode)', () => {
+        for (const type of ['AC180', 'AC2A', 'AC70', 'V2', 'APEX300']) {
+            expect(buildDevice(type)!.experimental, type).to.equal(true);
+        }
+        // Confirmed on real hardware - must stay writable.
+        for (const type of ['AC300', 'AC500']) {
+            expect(buildDevice(type)!.experimental, type).to.not.equal(true);
+        }
+    });
+
     it('builds every supported type', () => {
         for (const type of SUPPORTED_TYPES) {
             expect(buildDevice(type), type).to.not.equal(undefined);

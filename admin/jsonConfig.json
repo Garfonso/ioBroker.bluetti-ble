@@ -84,6 +84,23 @@
 			"md": 6,
 			"lg": 4,
 			"xl": 4
+		},
+		"writeMode": {
+			"type": "select",
+			"label": "Allow writing to the device",
+			"help": "auto = read-only for experimental device profiles; off = never write (safe mode)",
+			"newLine": true,
+			"options": [
+				{ "label": "Auto", "value": "auto" },
+				{ "label": "On", "value": "on" },
+				{ "label": "Off", "value": "off" }
+			],
+			"default": "auto",
+			"xs": 12,
+			"sm": 12,
+			"md": 6,
+			"lg": 4,
+			"xl": 4
 		}
 	}
 }

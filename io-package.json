@@ -107,7 +107,8 @@
     "deviceType": "auto",
     "pollInterval": 10,
     "pollPacks": false,
-    "encryption": "auto"
+    "encryption": "auto",
+    "writeMode": "auto"
   },
   "objects": [],
   "instanceObjects": [
