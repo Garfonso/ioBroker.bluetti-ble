@@ -3,6 +3,19 @@
     "name": "bluetti-ble",
     "version": "0.1.1",
     "news": {
+      "NEXT": {
+        "en": "renamed adapter from bluetti-battery to bluetti-ble to distinguish it from the cloud-based bluetti adapter\nadded a read-only / safe mode: experimental device profiles are no longer written to by default",
+        "de": "Adapter von bluetti-battery in bluetti-ble umbenannt, zur Abgrenzung vom cloudbasierten Adapter bluetti\nNur-Lese-Modus (Sicherheitsmodus) hinzugefügt: in experimentelle Geräteprofile wird standardmäßig nicht mehr geschrieben",
+        "ru": "адаптер переименован из bluetti-battery в bluetti-ble, чтобы отличать его от облачного адаптера bluetti\nдобавлен режим только для чтения (безопасный режим): в экспериментальные профили устройств по умолчанию больше не выполняется запись",
+        "pt": "adaptador renomeado de bluetti-battery para bluetti-ble para o distinguir do adaptador bluetti baseado na nuvem\nadicionado um modo apenas de leitura (modo seguro): por predefinição já não é escrito nos perfis de dispositivo experimentais",
+        "nl": "adapter hernoemd van bluetti-battery naar bluetti-ble om hem te onderscheiden van de cloudgebaseerde bluetti-adapter\nalleen-lezen modus (veilige modus) toegevoegd: naar experimentele apparaatprofielen wordt standaard niet meer geschreven",
+        "fr": "adaptateur renommé de bluetti-battery en bluetti-ble pour le distinguer de l'adaptateur bluetti basé sur le cloud\najout d'un mode lecture seule (mode sûr) : les profils d'appareils expérimentaux ne sont plus écrits par défaut",
+        "it": "adattatore rinominato da bluetti-battery a bluetti-ble per distinguerlo dall’adattatore bluetti basato su cloud\naggiunta una modalità di sola lettura (modalità sicura): per impostazione predefinita non si scrive più sui profili di dispositivo sperimentali",
+        "es": "adaptador renombrado de bluetti-battery a bluetti-ble para distinguirlo del adaptador bluetti basado en la nube\nañadido un modo de solo lectura (modo seguro): de forma predeterminada ya no se escribe en los perfiles de dispositivo experimentales",
+        "pl": "adapter przemianowany z bluetti-battery na bluetti-ble, aby odróżnić go od chmurowego adaptera bluetti\ndodano tryb tylko do odczytu (tryb bezpieczny): domyślnie nie zapisuje się już do eksperymentalnych profili urządzeń",
+        "uk": "адаптер перейменовано з bluetti-battery на bluetti-ble, щоб відрізняти його від хмарного адаптера bluetti\nдодано режим лише для читання (безпечний режим): до експериментальних профілів пристроїв за замовчуванням більше не виконується запис",
+        "zh-cn": "适配器已从 bluetti-battery 重命名为 bluetti-ble，以区别于基于云的 bluetti 适配器\n新增只读（安全）模式：默认不再写入实验性设备配置"
+      },
       "0.1.1": {
         "en": "add very experimental support for APEX 300.",
         "de": "Fügt experimentelle Unterstützung für APEX 300 hinzu.",

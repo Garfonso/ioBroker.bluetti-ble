@@ -146,8 +146,8 @@ setting before it gets a named state.
 	### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-* (Garfonso/Claude) added a read-only / safe mode: experimental device profiles are no longer written to by default
 * (Garfonso/Claude) renamed adapter from `bluetti-battery` to `bluetti-ble` to distinguish it from the cloud-based `bluetti` adapter
+* (Garfonso/Claude) added a read-only / safe mode: experimental device profiles are no longer written to by default
 
 ### 0.1.1 (2026-06-23)
 * (Garfonso/Claude) add very experimental support for APEX 300.
