@@ -30,7 +30,7 @@
     "linux"
   ],
   "dependencies": {
-    "@iobroker/adapter-core": "^3.4.1",
+    "@iobroker/adapter-core": "^3.4.3",
     "node-ble": "^1.13.0"
   },
   "devDependencies": {
