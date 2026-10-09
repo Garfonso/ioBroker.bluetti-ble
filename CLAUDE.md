@@ -17,9 +17,15 @@
 - Run the ioBroker repo checker periodically and **before every release**; fix
   all reported errors:
   ```bash
-  npx @iobroker/repochecker@latest https://github.com/Garfonso/ioBroker.bluetti-ble/ --local
+  OWN_GITHUB_TOKEN="$(gh auth token)" \
+    npx @iobroker/repochecker@latest https://github.com/Garfonso/ioBroker.bluetti-ble/ --local
   ```
   It queries the GitHub API, so it needs network access and a pushed `main`.
+  **Always pass the token**: the variable is `OWN_GITHUB_TOKEN` (not
+  `GITHUB_TOKEN`). Without it the checker runs unauthenticated, cannot download
+  workflow job logs and reports phantom `W3039`/`W3050`/`W3052` warnings; after
+  a few runs the anonymous rate limit (60/h) turns those into a `403`
+  `E9999 GLOBAL ERROR`.
 
 ## Module system: stay CommonJS — do NOT migrate to ESM
 
