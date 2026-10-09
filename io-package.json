@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "bluetti-ble",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "news": {
-      "NEXT": {
+      "0.2.0": {
         "en": "renamed adapter from bluetti-battery to bluetti-ble to distinguish it from the cloud-based bluetti adapter\nadded a read-only / safe mode: experimental device profiles are no longer written to by default",
         "de": "Adapter von bluetti-battery in bluetti-ble umbenannt, zur Abgrenzung vom cloudbasierten Adapter bluetti\nNur-Lese-Modus (Sicherheitsmodus) hinzugefügt: in experimentelle Geräteprofile wird standardmäßig nicht mehr geschrieben",
         "ru": "адаптер переименован из bluetti-battery в bluetti-ble, чтобы отличать его от облачного адаптера bluetti\nдобавлен режим только для чтения (безопасный режим): в экспериментальные профили устройств по умолчанию больше не выполняется запись",
