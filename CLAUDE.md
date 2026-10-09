@@ -63,6 +63,12 @@ Consequences:
 
 - Repo lives on a VirtualBox `vboxsf` shared folder (no symlinks, root-owned):
   - `npm install` must use `--no-bin-links`.
+  - Side effect: a newly installed package gets **no wrapper in
+    `node_modules/.bin`**, so its CLI is "command not found" even though the
+    package is there (hit after bumping `@iobroker/testing` to 6: `mocha:
+    command not found`). A manual `ln -s` into `.bin` does work, so relink by
+    hand, e.g. `ln -s ../mocha/bin/mocha.js node_modules/.bin/mocha`. CI is
+    unaffected (`npm ci` there links normally).
   - git has `core.fileMode false` set locally to avoid spurious exec-bit diffs.
 - Local npm is 12.x, which **does not run dependency install scripts**. This
   breaks `npm run test:integration` for any adapter (not our code): in the
