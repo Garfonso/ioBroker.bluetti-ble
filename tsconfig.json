@@ -14,6 +14,13 @@
 		"module": "commonjs",
 		"moduleResolution": "node",
 
+		// @tsconfig/node22 >= 22.0.6 pins "types" to ["node"], which drops the
+		// mocha globals (describe/it) used by the *.test.ts files.
+		"types": [
+			"node",
+			"mocha"
+		],
+
 		// check JS files
 		"allowJs": true,
 		"checkJs": true,

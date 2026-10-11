@@ -149,6 +149,7 @@ setting before it gets a named state.
 -->
 ### **WORK IN PROGRESS**
 - (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
+* (Garfonso/Claude) updated `@iobroker/adapter-core` to 3.4.3
 * (Garfonso/Claude) fixed that an unacknowledged write to a read-only pack state could send a register write to the device
 
 ### 0.2.0 (2026-10-09)
