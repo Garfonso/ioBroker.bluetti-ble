@@ -27,6 +27,14 @@
   a few runs the anonymous rate limit (60/h) turns those into a `403`
   `E9999 GLOBAL ERROR`.
 
+- **Keep the required versions in sync** whenever one of them is bumped. The
+  adapter review checklist wants the minimum node.js version documented in the
+  README, so these three must always agree:
+  - `package.json` -> `engines.node`
+  - `io-package.json` -> `common.dependencies` (`js-controller`) and
+    `common.globalDependencies` (`admin`)
+  - `README.md` -> first bullet of the "Requirements" section
+
 ## Module system: stay CommonJS — do NOT migrate to ESM
 
 The package is CommonJS (no `"type": "module"`), `tsconfig` uses
