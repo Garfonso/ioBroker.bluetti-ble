@@ -147,6 +147,10 @@ setting before it gets a named state.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (Garfonso/Claude) added the missing `packs` folder object, so every segment of a pack state id has its own object
+* (Garfonso/Claude) corrected the state roles: writable states no longer carry a read-only `value.*` role, the charge window uses `level.battery.min`/`level.battery.max` and the energy counter `value.energy.produced`
+
 ### 0.2.1 (2026-10-11)
 * (Garfonso/Claude) fixed that an unacknowledged write to a read-only pack state could send a register write to the device
 * (Garfonso/Claude) updated `@iobroker/adapter-core` to 3.4.3

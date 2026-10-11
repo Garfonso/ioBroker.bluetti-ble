@@ -18,7 +18,8 @@
 		// mocha globals (describe/it) used by the *.test.ts files.
 		"types": [
 			"node",
-			"mocha"
+			"mocha",
+			"iobroker"
 		],
 
 		// check JS files

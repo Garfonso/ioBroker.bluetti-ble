@@ -4,8 +4,8 @@
  */
 import * as utils from '@iobroker/adapter-core';
 import { ReadHoldingRegisters, WriteSingleRegister } from './lib/commands';
-import { BoolField, EnumField, SerialNumberField, StringField, SwapStringField, VersionField } from './lib/fields';
 import type { DeviceField, FieldValue } from './lib/fields';
+import { stateMeta } from './lib/stateroles';
 import { BluetoothClient, ModbusError } from './lib/bluetoothClient';
 import { buildDevice, detectFromName, SUPPORTED_TYPES } from './lib/devices';
 import type { DeviceDefinition } from './lib/devices';
@@ -318,6 +318,13 @@ class BluettiBle extends utils.Adapter {
             return;
         }
         this.createdPacks.add(pack);
+        // Every segment of an object id needs its own object, so "packs" has to
+        // exist before "packs.<n>" (repository check E3009).
+        await this.setObjectNotExistsAsync('packs', {
+            type: 'folder',
+            common: { name: 'Battery packs' },
+            native: {},
+        });
         await this.setObjectNotExistsAsync(`packs.${pack}`, {
             type: 'channel',
             common: { name: `Battery pack ${pack}` },
@@ -379,6 +386,11 @@ class BluettiBle extends utils.Adapter {
             read: true,
             write: writable,
         };
+        // A level.* role promises a writable state. In read-only mode the field
+        // role from the device profile would contradict common.write (E1011).
+        if (!writable && common.role.startsWith('level')) {
+            common.role = meta.role;
+        }
         const unit = field.unit ?? meta.unit;
         if (unit) {
             common.unit = unit;
@@ -551,50 +563,6 @@ class BluettiBle extends utils.Adapter {
             done();
         }
     }
-}
-
-interface StateMeta {
-    type: ioBroker.CommonType;
-    role: string;
-    unit?: string;
-}
-
-function stateMeta(field: DeviceField, writable: boolean): StateMeta {
-    const name = field.name;
-    if (name === 'cell_voltages') {
-        return { type: 'string', role: 'json' };
-    }
-    if (field instanceof BoolField) {
-        return { type: 'boolean', role: writable ? 'switch' : 'indicator' };
-    }
-    if (field instanceof EnumField) {
-        return { type: 'number', role: writable ? 'level.mode' : 'value' };
-    }
-    if (field instanceof StringField || field instanceof SwapStringField || field instanceof SerialNumberField) {
-        return { type: 'string', role: 'text' };
-    }
-    if (field instanceof VersionField) {
-        return { type: 'number', role: 'value' };
-    }
-    if (name === 'power_generation') {
-        return { type: 'number', role: 'value.power.consumed', unit: 'kWh' };
-    }
-    if (name.endsWith('percent') || name.startsWith('battery_range')) {
-        return { type: 'number', role: name.includes('battery') ? 'value.battery' : 'value', unit: '%' };
-    }
-    if (name.endsWith('power')) {
-        return { type: 'number', role: 'value.power', unit: 'W' };
-    }
-    if (name.includes('voltage')) {
-        return { type: 'number', role: writable ? 'level.voltage' : 'value.voltage', unit: 'V' };
-    }
-    if (name.includes('current')) {
-        return { type: 'number', role: writable ? 'level.current' : 'value.current', unit: 'A' };
-    }
-    if (name.includes('frequency')) {
-        return { type: 'number', role: 'value', unit: 'Hz' };
-    }
-    return { type: 'number', role: 'value' };
 }
 
 if (require.main !== module) {
