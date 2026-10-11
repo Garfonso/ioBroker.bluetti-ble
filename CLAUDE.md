@@ -27,6 +27,21 @@
   a few runs the anonymous rate limit (60/h) turns those into a `403`
   `E9999 GLOBAL ERROR`.
 
+- **Pre-fill the release news** in `io-package.json` before running
+  `npm run release <bump>`, under the key of the *upcoming* version (e.g.
+  `"0.2.1"`), translated into all 11 languages. The release-script iobroker
+  plugin then logs "current news is already in io-package.json, not changing
+  it" and does **not** call the online translator
+  (`translator.iobroker.in`/DeepL), which would otherwise abort the release
+  with `cli.fatal` when unreachable.
+  Do **not** use the plugin's `"NEXT"` shortcut: since `@iobroker/testing` 6
+  validates `io-package.json` against the js-controller schema, which allows
+  only semver keys, a committed `NEXT` fails `npm run test:package` with
+  `/common/news: must NOT have additional properties "NEXT"`.
+  Side effect: until that version is on npm, the repo checker reports `E2004`
+  ("version listed at common.news does not exist at NPM") - that resolves
+  itself with the release.
+
 - **Keep the required versions in sync** whenever one of them is bumped. The
   adapter review checklist wants the minimum node.js version documented in the
   README, so these three must always agree:
