@@ -402,6 +402,13 @@ class BluettiBle extends utils.Adapter {
             return;
         }
         const name = id.substring(id.lastIndexOf('.') + 1);
+        // Only root-level states are controls. Pack states repeat field names
+        // (packs.<n>.pack_num vs. the writable root pack_num), so matching on
+        // the last path segment alone would write a register for a state that
+        // was created read-only.
+        if (id !== `${this.namespace}.${name}`) {
+            return;
+        }
         const field = this.device.struct.writableField(name);
         if (!field) {
             return;

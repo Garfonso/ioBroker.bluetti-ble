@@ -145,6 +145,9 @@ setting before it gets a named state.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (Garfonso/Claude) fixed that an unacknowledged write to a read-only pack state could send a register write to the device
+
 ### 0.2.0 (2026-10-09)
 * (Garfonso/Claude) renamed adapter from `bluetti-battery` to `bluetti-ble` to distinguish it from the cloud-based `bluetti` adapter
 * (Garfonso/Claude) added a read-only / safe mode: experimental device profiles are no longer written to by default
