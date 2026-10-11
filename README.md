@@ -147,7 +147,7 @@ setting before it gets a named state.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.2.1 (2026-10-11)
 * (Garfonso/Claude) fixed that an unacknowledged write to a read-only pack state could send a register write to the device
 * (Garfonso/Claude) updated `@iobroker/adapter-core` to 3.4.3
 * (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.

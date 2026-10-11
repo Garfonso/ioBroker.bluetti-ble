@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "bluetti-ble",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "news": {
       "0.2.1": {
         "en": "fixed that an unacknowledged write to a read-only pack state could send a register write to the device\nupdated @iobroker/adapter-core to 3.4.3\nthe adapter now requires admin 7.8.23 or newer",
