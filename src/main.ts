@@ -1,5 +1,5 @@
 /*
- * ioBroker Bluetti battery adapter.
+ * ioBroker Bluetti BLE adapter.
  * MODBUS-over-Bluetooth port of warhammerkid/bluetti_mqtt.
  */
 import * as utils from '@iobroker/adapter-core';
@@ -17,7 +17,7 @@ const PACK_SWITCH_DELAY_MS = 3000;
 /** Consecutive failed poll cycles tolerated before info.connection drops to false. */
 const POLL_FAILURES_BEFORE_DISCONNECT = 3;
 
-class BluettiBattery extends utils.Adapter {
+class BluettiBle extends utils.Adapter {
     private client?: BluetoothClient;
     private device?: DeviceDefinition;
     private pollTimer?: ioBroker.Timeout;
@@ -26,13 +26,15 @@ class BluettiBattery extends utils.Adapter {
     private stopping = false;
     /** Consecutive failed poll cycles (transient BLE errors), for info.connection. */
     private pollFailures = 0;
+    /** Whether writing registers is permitted (see resolveWriteMode). */
+    private writesAllowed = false;
     /** Register start addresses already warned about (avoid log spam). */
     private readonly modbusWarned = new Set<number>();
     /** Pack numbers whose objects have been created. */
     private readonly createdPacks = new Set<number>();
 
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
-        super({ ...options, name: 'bluetti-battery' });
+        super({ ...options, name: 'bluetti-ble' });
         this.on('ready', this.onReady.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
         this.on('message', this.onMessage.bind(this));
@@ -88,6 +90,7 @@ class BluettiBattery extends utils.Adapter {
         }
         this.device = device;
         this.log.info(`Using device profile: ${device.type}`);
+        this.writesAllowed = this.resolveWriteMode(device);
 
         const encrypted = this.resolveEncryption(device);
         try {
@@ -103,6 +106,38 @@ class BluettiBattery extends utils.Adapter {
         this.pollFailures = 0;
         await this.setState('info.connection', { val: true, ack: true });
         await this.poll();
+    }
+
+    /**
+     * Decide whether the adapter may write registers. "auto" keeps experimental
+     * (unverified) device profiles read-only so a wrong register cannot be
+     * written by accident; "off" is a hard read-only safe mode.
+     *
+     * @param device
+     */
+    private resolveWriteMode(device: DeviceDefinition): boolean {
+        const mode = (this.config.writeMode || 'auto').trim();
+        if (mode === 'off') {
+            this.log.info('Write mode "off": read-only, the adapter will not write to the device.');
+            return false;
+        }
+        if (mode === 'on') {
+            if (device.experimental) {
+                this.log.warn(
+                    `Write mode "on" with the experimental ${device.type} profile: its registers are ` +
+                        `unverified, writing them may have unintended effects.`,
+                );
+            }
+            return true;
+        }
+        if (device.experimental) {
+            this.log.info(
+                `Device profile ${device.type} is experimental, so the adapter stays read-only. ` +
+                    `Set "Allow writing to the device" to "On" to enable controls.`,
+            );
+            return false;
+        }
+        return true;
     }
 
     /** Decide whether to use the encrypted v2 protocol (config override wins). */
@@ -231,6 +266,11 @@ class BluettiBattery extends utils.Adapter {
                 // ("acknowledge" - accepted, needs time), which is expected and
                 // not a failure. Then wait for the pack data to switch.
                 if (this.device.packNumMax > 1) {
+                    if (!this.writesAllowed) {
+                        // Selecting a pack means writing register 3006.
+                        this.log.debug('Skipping pack polling: selecting a pack requires writing.');
+                        return;
+                    }
                     await this.selectPack(pack);
                     await this.delay(PACK_SWITCH_DELAY_MS);
                 }
@@ -330,7 +370,7 @@ class BluettiBattery extends utils.Adapter {
     }
 
     private async createStateObject(prefix: string, field: DeviceField, device: DeviceDefinition): Promise<void> {
-        const writable = !prefix && !!device.struct.writableField(field.name);
+        const writable = !prefix && !!device.struct.writableField(field.name) && this.writesAllowed;
         const meta = stateMeta(field, writable);
         const common: ioBroker.StateCommon = {
             name: field.name.replace(/_/g, ' '),
@@ -362,8 +402,19 @@ class BluettiBattery extends utils.Adapter {
             return;
         }
         const name = id.substring(id.lastIndexOf('.') + 1);
+        // Only root-level states are controls. Pack states repeat field names
+        // (packs.<n>.pack_num vs. the writable root pack_num), so matching on
+        // the last path segment alone would write a register for a state that
+        // was created read-only.
+        if (id !== `${this.namespace}.${name}`) {
+            return;
+        }
         const field = this.device.struct.writableField(name);
         if (!field) {
+            return;
+        }
+        if (!this.writesAllowed) {
+            this.log.warn(`Ignoring write to ${name}: the adapter is in read-only mode.`);
             return;
         }
 
@@ -421,6 +472,10 @@ class BluettiBattery extends utils.Adapter {
                     break;
                 }
                 case 'writeRegister': {
+                    if (!this.writesAllowed) {
+                        respond({ error: 'adapter is in read-only mode (see "Allow writing to the device")' });
+                        break;
+                    }
                     const address = num(msg.address);
                     const value = num(msg.value);
                     try {
@@ -543,7 +598,7 @@ function stateMeta(field: DeviceField, writable: boolean): StateMeta {
 }
 
 if (require.main !== module) {
-    module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new BluettiBattery(options);
+    module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new BluettiBle(options);
 } else {
-    (() => new BluettiBattery())();
+    (() => new BluettiBle())();
 }

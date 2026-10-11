@@ -14,6 +14,11 @@ declare global {
             pollPacks: boolean;
             /** Encrypted v2 protocol: "auto" (per device profile), "on" or "off". */
             encryption: string;
+            /**
+             * Writing to the device: "auto" (allowed, except for experimental
+             * device profiles), "on" (always allowed) or "off" (read-only).
+             */
+            writeMode: string;
         }
     }
 }

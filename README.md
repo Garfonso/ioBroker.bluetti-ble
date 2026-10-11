@@ -1,15 +1,15 @@
-<img src="admin/bluetti-battery.png" alt="Logo" width="120" align="right" />
+<img src="admin/bluetti-ble.png" alt="Logo" width="120" align="right" />
 
-# ioBroker.bluetti-battery
+# ioBroker.bluetti-ble
 
-[![NPM version](https://img.shields.io/npm/v/iobroker.bluetti-battery.svg)](https://www.npmjs.com/package/iobroker.bluetti-battery)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.bluetti-battery.svg)](https://www.npmjs.com/package/iobroker.bluetti-battery)
-![Number of Installations](https://iobroker.live/badges/bluetti-battery-installed.svg)
-![Current version in stable repository](https://iobroker.live/badges/bluetti-battery-stable.svg)
+[![NPM version](https://img.shields.io/npm/v/iobroker.bluetti-ble.svg)](https://www.npmjs.com/package/iobroker.bluetti-ble)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.bluetti-ble.svg)](https://www.npmjs.com/package/iobroker.bluetti-ble)
+![Number of Installations](https://iobroker.live/badges/bluetti-ble-installed.svg)
+![Current version in stable repository](https://iobroker.live/badges/bluetti-ble-stable.svg)
 
-[![NPM](https://nodei.co/npm/iobroker.bluetti-battery.png?downloads=true)](https://nodei.co/npm/iobroker.bluetti-battery/)
+[![NPM](https://nodei.co/npm/iobroker.bluetti-ble.png?downloads=true)](https://nodei.co/npm/iobroker.bluetti-ble/)
 
-**Tests:** ![Test and Release](https://github.com/Garfonso/ioBroker.bluetti-battery/workflows/Test%20and%20Release/badge.svg)
+**Tests:** ![Test and Release](https://github.com/Garfonso/ioBroker.bluetti-ble/workflows/Test%20and%20Release/badge.svg)
 
 > **Disclaimer:** This is an independent, community-developed adapter. It is
 > **not** affiliated with, endorsed by, or supported by Bluetti / PowerOak.
@@ -17,7 +17,14 @@
 > owners and are used here only to describe device compatibility. Use at your
 > own risk — the authors are not responsible for any damage to your devices.
 
-## bluetti-battery adapter for ioBroker
+## bluetti-ble adapter for ioBroker
+
+> **Renamed:** this adapter was previously published as `bluetti-battery`
+> (npm `iobroker.bluetti-battery`). It was renamed to `bluetti-ble` to avoid
+> confusion with the separate cloud-based `bluetti` adapter. If you used
+> `bluetti-battery`, install `bluetti-ble`, copy your settings (MAC address,
+> device type, …) into the new instance, update scripts/visualizations from
+> `bluetti-battery.0.*` to `bluetti-ble.0.*`, then remove the old adapter.
 
 Monitor and control Bluetti power stations / batteries over Bluetooth Low Energy
 (MODBUS-over-BLE). This is a Node.js/TypeScript port of the protocol from
@@ -66,6 +73,8 @@ If the handshake completes (`Encrypted handshake complete` in the log), use the
 
 ### Requirements
 
+- **Node.js 22** or newer, **js-controller 6.0.11** or newer and **admin 7.6.20**
+  or newer (the configuration uses JSON config).
 - Linux host with **BlueZ** (the standard Linux Bluetooth stack). The adapter
   uses [`node-ble`](https://github.com/chrvadala/node-ble), which talks to BlueZ
   over D-Bus — it does **not** grab the HCI adapter exclusively, so it coexists
@@ -82,10 +91,30 @@ If the handshake completes (`Encrypted handshake complete` in the log), use the
 | Device type | `auto` detects from the advertised BLE name, or pick the model manually. |
 | Polling interval | Seconds between reads (default 10). |
 | Poll per-pack data | Also read per-pack cell voltages etc. (slower). |
+| Encryption | `auto` follows the device profile; force `on`/`off` for newer encrypted units. |
+| Allow writing to the device | `auto` (default), `on` or `off` - see below. |
 
 States that map to writable MODBUS registers (e.g. `ac_output_on`,
 `dc_output_on`, `ups_mode`) are created with write access; setting them sends a
 `WriteSingleRegister` command to the device.
+
+#### Read-only / safe mode
+
+The adapter never writes on its own; it only writes when you change a writable
+state, when it selects a battery pack for per-pack polling (register 3006), or
+when you send a `writeRegister` message. **Allow writing to the device**
+controls all three:
+
+| Mode | Behaviour |
+|------|-----------|
+| `auto` (default) | Writing is allowed for the verified profiles, but an **experimental** profile (`AC180`, `AC2A`, `AC70`, `Apex 300`, `V2`) stays **read-only**, because its registers are reverse-engineered and partly guessed. |
+| `on` | Writing always allowed. With an experimental profile you get a warning. |
+| `off` | Hard read-only safe mode: nothing is ever written. |
+
+In read-only mode the writable states are created without write access,
+`writeRegister` is refused, and per-pack polling is skipped (selecting a pack
+needs a write). Reading - including `readRegisters` and `scanRange` - always
+works, so you can map a new device safely before enabling any control.
 
 ### Finding undocumented registers / controls
 
@@ -98,13 +127,13 @@ From the JavaScript adapter / a script (replace `0` with your instance):
 
 ```js
 // Read specific registers
-sendTo('bluetti-battery.0', 'readRegisters', { address: 3019, quantity: 1 }, console.log);
+sendTo('bluetti-ble.0', 'readRegisters', { address: 3019, quantity: 1 }, console.log);
 
 // Scan a range (readable registers only)
-sendTo('bluetti-battery.0', 'scanRange', { start: 3000, end: 3120 }, console.log);
+sendTo('bluetti-ble.0', 'scanRange', { start: 3000, end: 3120 }, console.log);
 
 // Write a register to test a control (use with care)
-sendTo('bluetti-battery.0', 'writeRegister', { address: 3019, value: 10 }, console.log);
+sendTo('bluetti-ble.0', 'writeRegister', { address: 3019, value: 10 }, console.log);
 ```
 
 Workflow to find a setting: `scanRange` the likely control area (around
@@ -120,6 +149,13 @@ setting before it gets a named state.
 -->
 ### **WORK IN PROGRESS**
 - (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
+* (Garfonso/Claude) fixed that an unacknowledged write to a read-only pack state could send a register write to the device
+
+### 0.2.0 (2026-10-09)
+* (Garfonso/Claude) renamed adapter from `bluetti-battery` to `bluetti-ble` to distinguish it from the cloud-based `bluetti` adapter
+* (Garfonso/Claude) added a read-only / safe mode: experimental device profiles are no longer written to by default
+
+### 0.1.1 (2026-06-23)
 * (Garfonso/Claude) add very experimental support for APEX 300.
 
 ### 0.1.0 (2026-06-19)
