@@ -73,7 +73,7 @@ If the handshake completes (`Encrypted handshake complete` in the log), use the
 
 ### Requirements
 
-- **Node.js 22** or newer, **js-controller 6.0.11** or newer and **admin 7.6.20**
+- **Node.js 22** or newer, **js-controller 6.0.11** or newer and **admin 7.8.23**
   or newer (the configuration uses JSON config).
 - Linux host with **BlueZ** (the standard Linux Bluetooth stack). The adapter
   uses [`node-ble`](https://github.com/chrvadala/node-ble), which talks to BlueZ
