@@ -1,47 +1,60 @@
 {
   "common": {
-    "name": "bluetti-battery",
-    "version": "0.1.0",
+    "name": "bluetti-ble",
+    "version": "0.2.0",
     "news": {
-      "0.1.0": {
-        "en": "tolerate issues in BLE connection better.\nadd support for reverse engineering modbus registers via sendTo commands\nmake modbus polling more robust.\nadd experimental support for encrypted (v2) devices\ninitial release",
-        "de": "Probleme mit der BLE-Verbindung besser tolerieren.\nUnterstützung für Reverse Engineering von Modbus-Registern über sendTo-Befehle hinzufügen\nDas Modbus-Polling robuster gestalten.\nExperimentelle Unterstützung für verschlüsselte (v2) Geräte hinzufügen\nErstveröffentlichung",
-        "ru": "Лучше справляются с проблемами в BLE-соединении.\nДобавить поддержку обратного проектирования регистров Modbus с помощью команд sendTo.\nСделать опрос Modbus более надежным.\nдобавить экспериментальную поддержку зашифрованных (v2) устройств\nпервоначальный релиз",
-        "pt": "toleram melhor problemas na conexão BLE.\nAdicionar suporte para engenharia reversa de registradores Modbus por meio de comandos sendTo.\nTornar o polling do Modbus mais robusto.\nAdicionar suporte experimental para dispositivos criptografados (v2)\nlançamento inicial",
-        "nl": "Kan problemen met de BLE-verbinding beter verdragen.\nVoeg ondersteuning toe voor reverse engineering van Modbus-registers via sendTo-commando's.\nModbus-polling robuuster maken.\nVoeg experimentele ondersteuning toe voor versleutelde (v2) apparaten.\neerste release",
-        "fr": "Tolérer mieux les problèmes de connexion BLE.\najout de la prise en charge de la rétro-ingénierie des registres Modbus via les commandes sendTo\nRendre l'interrogation Modbus plus robuste.\najout d'une prise en charge expérimentale des périphériques chiffrés (v2)\nversion initiale",
-        "it": "Tolleranza migliore ai problemi di connessione BLE.\nAggiungere il supporto per il reverse engineering dei registri Modbus tramite comandi sendTo\nrendere più robusto il polling Modbus.\naggiungere il supporto sperimentale per dispositivi crittografati (v2).\nrilascio iniziale",
-        "es": "Toleran mejor los problemas en la conexión BLE.\nAgregar soporte para la ingeniería inversa de registros Modbus mediante comandos sendTo.\nHacer que el sondeo Modbus sea más robusto.\nagregar soporte experimental para dispositivos cifrados (v2)\nlanzamiento inicial",
-        "pl": "lepiej znoszą problemy z połączeniem BLE.\ndodaj obsługę inżynierii wstecznej rejestrów Modbus za pomocą poleceń sendTo\nuczynić sondowanie modbus bardziej niezawodnym.\ndodaj eksperymentalną obsługę urządzeń szyfrowanych (v2)\nwydanie początkowe",
-        "uk": "краще переносять проблеми з BLE-з'єднанням.\nдодати підтримку зворотного проектування регістрів Modbus за допомогою команд sendTo\nзробити опитування Modbus більш надійним.\nдодати експериментальну підтримку для зашифрованих пристроїв (v2)\nпочатковий випуск",
-        "zh-cn": "对蓝牙低功耗连接问题的容忍度更高。\n添加对通过 sendTo 命令进行 Modbus 寄存器逆向工程的支持\n增强 Modbus 轮询的稳定性。\n增加对加密（v2）设备的实验性支持\n初始版本"
+      "0.2.0": {
+        "en": "renamed adapter from bluetti-battery to bluetti-ble to distinguish it from the cloud-based bluetti adapter\nadded a read-only / safe mode: experimental device profiles are no longer written to by default",
+        "de": "Adapter von bluetti-battery in bluetti-ble umbenannt, zur Abgrenzung vom cloudbasierten Adapter bluetti\nNur-Lese-Modus (Sicherheitsmodus) hinzugefügt: in experimentelle Geräteprofile wird standardmäßig nicht mehr geschrieben",
+        "ru": "адаптер переименован из bluetti-battery в bluetti-ble, чтобы отличать его от облачного адаптера bluetti\nдобавлен режим только для чтения (безопасный режим): в экспериментальные профили устройств по умолчанию больше не выполняется запись",
+        "pt": "adaptador renomeado de bluetti-battery para bluetti-ble para o distinguir do adaptador bluetti baseado na nuvem\nadicionado um modo apenas de leitura (modo seguro): por predefinição já não é escrito nos perfis de dispositivo experimentais",
+        "nl": "adapter hernoemd van bluetti-battery naar bluetti-ble om hem te onderscheiden van de cloudgebaseerde bluetti-adapter\nalleen-lezen modus (veilige modus) toegevoegd: naar experimentele apparaatprofielen wordt standaard niet meer geschreven",
+        "fr": "adaptateur renommé de bluetti-battery en bluetti-ble pour le distinguer de l'adaptateur bluetti basé sur le cloud\najout d'un mode lecture seule (mode sûr) : les profils d'appareils expérimentaux ne sont plus écrits par défaut",
+        "it": "adattatore rinominato da bluetti-battery a bluetti-ble per distinguerlo dall’adattatore bluetti basato su cloud\naggiunta una modalità di sola lettura (modalità sicura): per impostazione predefinita non si scrive più sui profili di dispositivo sperimentali",
+        "es": "adaptador renombrado de bluetti-battery a bluetti-ble para distinguirlo del adaptador bluetti basado en la nube\nañadido un modo de solo lectura (modo seguro): de forma predeterminada ya no se escribe en los perfiles de dispositivo experimentales",
+        "pl": "adapter przemianowany z bluetti-battery na bluetti-ble, aby odróżnić go od chmurowego adaptera bluetti\ndodano tryb tylko do odczytu (tryb bezpieczny): domyślnie nie zapisuje się już do eksperymentalnych profili urządzeń",
+        "uk": "адаптер перейменовано з bluetti-battery на bluetti-ble, щоб відрізняти його від хмарного адаптера bluetti\nдодано режим лише для читання (безпечний режим): до експериментальних профілів пристроїв за замовчуванням більше не виконується запис",
+        "zh-cn": "适配器已从 bluetti-battery 重命名为 bluetti-ble，以区别于基于云的 bluetti 适配器\n新增只读（安全）模式：默认不再写入实验性设备配置"
+      },
+      "0.1.1": {
+        "en": "add very experimental support for APEX 300.",
+        "de": "Fügt experimentelle Unterstützung für APEX 300 hinzu.",
+        "ru": "Добавлена экспериментальная поддержка APEX 300.",
+        "pt": "Adicionada uma versão experimental do suporte para o APEX 300.",
+        "nl": "Voeg zeer experimentele ondersteuning toe voor APEX 300.",
+        "fr": "Ajout d'une prise en charge très expérimentale pour APEX 300.",
+        "it": "Aggiungere un supporto ancora in fase sperimentale per APEX 300.",
+        "es": "Se añade soporte muy experimental para APEX 300.",
+        "pl": "dodano bardzo eksperymentalne wsparcie dla APEX 300.",
+        "uk": "додати дуже експериментальну підтримку для APEX 300.",
+        "zh-cn": "为 APEX 300 添加非常实验性的支持。"
       }
     },
     "titleLang": {
-      "en": "bluetti battery control",
-      "de": "Bluetti Batteriesteuerung",
-      "ru": "контроль заряда батареи bluetti",
-      "pt": "controle de bateria bluetti",
-      "nl": "bluetti batterijcontrole",
-      "fr": "contrôle de batterie bluetti",
-      "it": "controllo batteria bluetti",
-      "es": "control de bateria bluetti",
-      "pl": "kontrola baterii bluetti",
-      "uk": "контроль батареї bluetti",
-      "zh-cn": "bluetti电池控制"
+      "en": "Bluetti via Bluetooth (BLE)",
+      "de": "Bluetti über Bluetooth (BLE)",
+      "ru": "Bluetti через Bluetooth (BLE)",
+      "pt": "Bluetti via Bluetooth (BLE)",
+      "nl": "Bluetti via Bluetooth (BLE)",
+      "fr": "Bluetti via Bluetooth (BLE)",
+      "it": "Bluetti tramite Bluetooth (BLE)",
+      "es": "Bluetti por Bluetooth (BLE)",
+      "pl": "Bluetti przez Bluetooth (BLE)",
+      "uk": "Bluetti через Bluetooth (BLE)",
+      "zh-cn": "Bluetti 蓝牙 (BLE)"
     },
     "desc": {
-      "en": "monitor and control bluetti battery",
-      "de": "Bluetti-Batterie überwachen und steuern",
-      "ru": "мониторинг и управление батареей Bluetti",
-      "pt": "monitorizar e controlar a bateria Bluetti",
-      "nl": "Bluetti-batterij bewaken en bedienen",
-      "fr": "surveiller et contrôler la batterie Bluetti",
-      "it": "monitora e controlla la batteria Bluetti",
-      "es": "monitorizar y controlar la batería Bluetti",
-      "pl": "monitoruj i steruj baterią Bluetti",
-      "uk": "моніторинг і керування батареєю Bluetti",
-      "zh-cn": "监控和控制 Bluetti 电池"
+      "en": "monitor and control Bluetti locally via Bluetooth",
+      "de": "Bluetti lokal per Bluetooth überwachen und steuern",
+      "ru": "локальный мониторинг и управление Bluetti через Bluetooth",
+      "pt": "monitorizar e controlar a Bluetti localmente via Bluetooth",
+      "nl": "Bluetti lokaal via Bluetooth bewaken en bedienen",
+      "fr": "surveiller et contrôler Bluetti localement via Bluetooth",
+      "it": "monitora e controlla Bluetti localmente tramite Bluetooth",
+      "es": "monitorizar y controlar Bluetti localmente por Bluetooth",
+      "pl": "lokalnie monitoruj i steruj Bluetti przez Bluetooth",
+      "uk": "локальний моніторинг і керування Bluetti через Bluetooth",
+      "zh-cn": "通过蓝牙本地监控和控制 Bluetti"
     },
     "authors": [
       "Garfonso <garfonso@mobo.info>"
@@ -60,10 +73,10 @@
       "license": "MIT"
     },
     "platform": "Javascript/Node.js",
-    "icon": "bluetti-battery.png",
+    "icon": "bluetti-ble.png",
     "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/Garfonso/ioBroker.bluetti-battery/main/admin/bluetti-battery.png",
-    "readme": "https://github.com/Garfonso/ioBroker.bluetti-battery/blob/main/README.md",
+    "extIcon": "https://raw.githubusercontent.com/Garfonso/ioBroker.bluetti-ble/main/admin/bluetti-ble.png",
+    "readme": "https://github.com/Garfonso/ioBroker.bluetti-ble/blob/main/README.md",
     "loglevel": "info",
     "tier": 3,
     "mode": "daemon",
@@ -94,7 +107,8 @@
     "deviceType": "auto",
     "pollInterval": 10,
     "pollPacks": false,
-    "encryption": "auto"
+    "encryption": "auto",
+    "writeMode": "auto"
   },
   "objects": [],
   "instanceObjects": [

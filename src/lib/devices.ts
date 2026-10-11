@@ -36,6 +36,12 @@ export interface DeviceDefinition {
     packPollingCommands: ReadHoldingRegisters[];
     /** True for v2 devices that require the encrypted BLE handshake. */
     encrypted?: boolean;
+    /**
+     * True when the register map is unverified (reverse-engineered from community
+     * forks, partly guessed). With writeMode "auto" the adapter stays read-only
+     * for these, so a wrong register cannot be written by accident.
+     */
+    experimental?: boolean;
     /** Optional hook to derive virtual fields after parsing (e.g. v2 bitfields). */
     postParse?: (parsed: Record<string, FieldValue>) => void;
 }
@@ -356,6 +362,7 @@ const buildAC180: Builder = () => {
         type: 'AC180',
         packNumMax: 1,
         struct: s,
+        experimental: true,
         pollingCommands: [new ReadHoldingRegisters(100, 62)],
         packPollingCommands: [],
     };
@@ -427,6 +434,7 @@ const buildAc70Style = (type: string): DeviceDefinition => {
         type,
         packNumMax: 1,
         struct: s,
+        experimental: true,
         pollingCommands: [
             new ReadHoldingRegisters(100, 50),
             new ReadHoldingRegisters(1100, 51),

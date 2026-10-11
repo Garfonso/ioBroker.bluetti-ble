@@ -1,5 +1,5 @@
 {
-	"bluetti-battery adapter settings": "Ajustes del adaptador para bluetti-battery",
+	"bluetti-ble adapter settings": "Ajustes del adaptador para bluetti-ble",
 	"MAC address": "Dirección MAC",
 	"Bluetooth MAC address of the device, e.g. AA:BB:CC:DD:EE:FF": "Dirección MAC Bluetooth del dispositivo, p. ej. AA:BB:CC:DD:EE:FF",
 	"Device type": "Tipo de dispositivo",
@@ -8,5 +8,7 @@
 	"Poll per-pack battery data": "Sondear datos por batería",
 	"Reads cell voltages and per-pack details (slower)": "Lee voltajes de celda y detalles por batería (más lento)",
 	"Encryption (v2 devices)": "Cifrado (dispositivos v2)",
-	"auto follows the device profile; force on/off for newer encrypted units": "auto sigue el perfil del dispositivo; fuerza activado/desactivado para dispositivos cifrados más nuevos"
+	"auto follows the device profile; force on/off for newer encrypted units": "auto sigue el perfil del dispositivo; fuerza activado/desactivado para dispositivos cifrados más nuevos",
+	"Allow writing to the device": "Permitir escritura en el dispositivo",
+	"auto = read-only for experimental device profiles; off = never write (safe mode)": "auto = solo lectura para perfiles experimentales; off = nunca escribir (modo seguro)"
 }

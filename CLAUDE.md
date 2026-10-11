@@ -17,9 +17,23 @@
 - Run the ioBroker repo checker periodically and **before every release**; fix
   all reported errors:
   ```bash
-  npx @iobroker/repochecker@latest https://github.com/Garfonso/ioBroker.bluetti-battery/ --local
+  OWN_GITHUB_TOKEN="$(gh auth token)" \
+    npx @iobroker/repochecker@latest https://github.com/Garfonso/ioBroker.bluetti-ble/ --local
   ```
   It queries the GitHub API, so it needs network access and a pushed `main`.
+  **Always pass the token**: the variable is `OWN_GITHUB_TOKEN` (not
+  `GITHUB_TOKEN`). Without it the checker runs unauthenticated, cannot download
+  workflow job logs and reports phantom `W3039`/`W3050`/`W3052` warnings; after
+  a few runs the anonymous rate limit (60/h) turns those into a `403`
+  `E9999 GLOBAL ERROR`.
+
+- **Keep the required versions in sync** whenever one of them is bumped. The
+  adapter review checklist wants the minimum node.js version documented in the
+  README, so these three must always agree:
+  - `package.json` -> `engines.node`
+  - `io-package.json` -> `common.dependencies` (`js-controller`) and
+    `common.globalDependencies` (`admin`)
+  - `README.md` -> first bullet of the "Requirements" section
 
 ## Module system: stay CommonJS — do NOT migrate to ESM
 
@@ -63,7 +77,25 @@ Consequences:
 
 - Repo lives on a VirtualBox `vboxsf` shared folder (no symlinks, root-owned):
   - `npm install` must use `--no-bin-links`.
+  - Side effect: a newly installed package gets **no wrapper in
+    `node_modules/.bin`**, so its CLI is "command not found" even though the
+    package is there (hit after bumping `@iobroker/testing` to 6: `mocha:
+    command not found`). A manual `ln -s` into `.bin` does work, so relink by
+    hand, e.g. `ln -s ../mocha/bin/mocha.js node_modules/.bin/mocha`. CI is
+    unaffected (`npm ci` there links normally).
   - git has `core.fileMode false` set locally to avoid spurious exec-bit diffs.
+- Local npm is 12.x, which **does not run dependency install scripts**. This
+  breaks `npm run test:integration` for any adapter (not our code): in the
+  harness dir `/tmp/test-iobroker.bluetti-ble` js-controller's `install` script
+  (`iobroker.js setup first`, creates `iobroker-data/`) and esbuild's binary
+  download are skipped. Symptoms: `iobroker-data/iobroker.json: ENOENT`, then
+  `esbuild: Failed to install correctly`. Workaround after a failing first run:
+  ```bash
+  cd /tmp/test-iobroker.bluetti-ble/node_modules/iobroker.js-controller && node iobroker.js setup first
+  cd /tmp/test-iobroker.bluetti-ble/node_modules/esbuild && node install.js
+  ```
+  then rerun `npm run test:integration`. CI uses the Node-bundled npm (< 12),
+  so it should be unaffected.
 
 ## Project
 

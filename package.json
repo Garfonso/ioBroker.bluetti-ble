@@ -1,13 +1,13 @@
 {
-  "name": "iobroker.bluetti-battery",
-  "version": "0.1.0",
+  "name": "iobroker.bluetti-ble",
+  "version": "0.2.0",
   "description": "bluetti",
   "author": {
     "name": "Garfonso",
     "email": "garfonso@mobo.info"
   },
   "contributors": [],
-  "homepage": "https://github.com/Garfonso/ioBroker.bluetti-battery",
+  "homepage": "https://github.com/Garfonso/ioBroker.bluetti-ble",
   "license": "MIT",
   "keywords": [
     "ioBroker",
@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Garfonso/ioBroker.bluetti-battery.git"
+    "url": "https://github.com/Garfonso/ioBroker.bluetti-ble.git"
   },
   "engines": {
     "node": ">= 22"
@@ -40,7 +40,7 @@
     "@alcalzone/release-script-plugin-manual-review": "^5.2.0",
     "@iobroker/adapter-dev": "^1.5.0",
     "@iobroker/eslint-config": "^2.3.4",
-    "@iobroker/testing": "^5.2.2",
+    "@iobroker/testing": "^6.3.0",
     "@tsconfig/node22": "^22.0.0",
     "@types/iobroker": "npm:@iobroker/types@^7.1.2",
     "@types/node": "^22.20.0 < 23",
@@ -67,10 +67,10 @@
     "test": "npm run test:ts && npm run test:package",
     "translate": "translate-adapter",
     "release": "release-script",
-    "check:repo": "npx @iobroker/repochecker https://github.com/Garfonso/ioBroker.bluetti-battery --local"
+    "check:repo": "npx @iobroker/repochecker https://github.com/Garfonso/ioBroker.bluetti-ble --local"
   },
   "bugs": {
-    "url": "https://github.com/Garfonso/ioBroker.bluetti-battery/issues"
+    "url": "https://github.com/Garfonso/ioBroker.bluetti-ble/issues"
   },
   "readmeFilename": "README.md"
 }
