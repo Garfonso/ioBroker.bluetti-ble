@@ -3,6 +3,19 @@
     "name": "bluetti-ble",
     "version": "0.2.0",
     "news": {
+      "0.2.1": {
+        "en": "fixed that an unacknowledged write to a read-only pack state could send a register write to the device\nupdated @iobroker/adapter-core to 3.4.3\nthe adapter now requires admin 7.8.23 or newer",
+        "de": "behoben, dass ein nicht bestätigter Schreibzugriff auf einen nur lesbaren Pack-Datenpunkt ein Register am Gerät schreiben konnte\n@iobroker/adapter-core auf 3.4.3 aktualisiert\nder Adapter benötigt jetzt admin 7.8.23 oder neuer",
+        "ru": "исправлено: неподтверждённая запись в состояние пакета, доступное только для чтения, могла привести к записи регистра на устройстве\n@iobroker/adapter-core обновлён до 3.4.3\nтеперь адаптеру требуется admin 7.8.23 или новее",
+        "pt": "corrigido: uma escrita não confirmada num estado de pacote apenas de leitura podia enviar uma escrita de registo para o dispositivo\n@iobroker/adapter-core atualizado para 3.4.3\no adaptador requer agora admin 7.8.23 ou mais recente",
+        "nl": "opgelost dat een niet-bevestigde schrijfactie naar een alleen-lezen pack-state een registerschrijfactie naar het apparaat kon sturen\n@iobroker/adapter-core bijgewerkt naar 3.4.3\nde adapter vereist nu admin 7.8.23 of nieuwer",
+        "fr": "correction : une écriture non acquittée sur un état de pack en lecture seule pouvait envoyer une écriture de registre à l'appareil\n@iobroker/adapter-core mis à jour en 3.4.3\nl'adaptateur nécessite désormais admin 7.8.23 ou plus récent",
+        "it": "corretto il fatto che una scrittura non confermata su uno stato di pacco in sola lettura potesse inviare la scrittura di un registro al dispositivo\n@iobroker/adapter-core aggiornato alla 3.4.3\nl'adattatore richiede ora admin 7.8.23 o successivo",
+        "es": "corregido que una escritura sin confirmar en un estado de paquete de solo lectura pudiera enviar una escritura de registro al dispositivo\n@iobroker/adapter-core actualizado a 3.4.3\nel adaptador requiere ahora admin 7.8.23 o posterior",
+        "pl": "naprawiono, że niepotwierdzony zapis do stanu pakietu tylko do odczytu mógł wysłać zapis rejestru do urządzenia\nzaktualizowano @iobroker/adapter-core do 3.4.3\nadapter wymaga teraz admin 7.8.23 lub nowszego",
+        "uk": "виправлено: непідтверджений запис у стан пакета, доступний лише для читання, міг надіслати запис регістра на пристрій\n@iobroker/adapter-core оновлено до 3.4.3\nтепер адаптеру потрібен admin 7.8.23 або новіший",
+        "zh-cn": "修复了对只读电池包状态的未确认写入可能向设备写入寄存器的问题\n@iobroker/adapter-core 已更新至 3.4.3\n适配器现在需要 admin 7.8.23 或更高版本"
+      },
       "0.2.0": {
         "en": "renamed adapter from bluetti-battery to bluetti-ble to distinguish it from the cloud-based bluetti adapter\nadded a read-only / safe mode: experimental device profiles are no longer written to by default",
         "de": "Adapter von bluetti-battery in bluetti-ble umbenannt, zur Abgrenzung vom cloudbasierten Adapter bluetti\nNur-Lese-Modus (Sicherheitsmodus) hinzugefügt: in experimentelle Geräteprofile wird standardmäßig nicht mehr geschrieben",

@@ -148,9 +148,9 @@ setting before it gets a named state.
 	### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-- (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
-* (Garfonso/Claude) updated `@iobroker/adapter-core` to 3.4.3
 * (Garfonso/Claude) fixed that an unacknowledged write to a read-only pack state could send a register write to the device
+* (Garfonso/Claude) updated `@iobroker/adapter-core` to 3.4.3
+* (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
 
 ### 0.2.0 (2026-10-09)
 * (Garfonso/Claude) renamed adapter from `bluetti-battery` to `bluetti-ble` to distinguish it from the cloud-based `bluetti` adapter
