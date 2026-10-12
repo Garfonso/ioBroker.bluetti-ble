@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "bluetti-ble",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "news": {
+      "0.2.2": {
+        "en": "added the missing `packs` folder object, so every segment of a pack state id has its own object\ncorrected the state roles: writable states no longer carry a read-only `value.*` role, the charge window uses `level.battery.min`/`level.battery.max` and the energy counter `value.energy.produced`",
+        "de": "fehlendes Ordnerobjekt „Packs“ hinzugefügt, sodass jede Packstatus-ID ein Objekt hat\nDie Statusrollen wurden korrigiert: schreibbare Zustände sind nicht mehr lesbar, das Ladefenster nutzt `level.battery.min`/`level.battery.max` und der Energiezähler `value.energy.produced`",
+        "ru": "добавлен недостающий объект папки `packs`, поэтому каждый сегмент идентификатора состояния пакета имеет свой объект\nисправлены роли состояний: доступные для записи состояния больше не содержат роль «value.*`, доступную только для чтения», в окне зарядки используется `level.battery.min`/`level.battery.max` и счетчик энергии `value.energy.produced`",
+        "pt": "adicionou a pasta `packs` ausente, então cada segmento do ID de estado do pacote\ncorrigiu as funções de estado: estados graváveis não têm mais a função `valor.*` somente para leitura, a janela de carga usa `level.battery.min`/`level.battery.max` e o contador `value.energy.produced`",
+        "nl": "heeft het ontbrekende mapobject `packs` toegevoegd, zodat elk segment van een packstatus-id zijn eigen object heeft\nheeft de statusrollen gecorrigeerd: schrijfbare toestanden hebben niet langer een `waarde.*` rol, het laadvenster gebruikt `level.battery.min`/`level.battery.max` en de energieteller `value.energy.produced`",
+        "fr": "a ajouté le dossier « packs » manquant, donc chaque segment d'un ID d'état de pack a son propre objet\na corrigé les rôles des états : les états inscriptibles n'ont plus de valeur en lecture seule. La fenêtre de charge utilise level.battery.min/level.battery.max et le compteur d'énergie value.energy.produce",
+        "it": "ha aggiunto la cartella `packs` mancante, così ogni segmento di un Pack State ID ha il suo oggetto\ncorretto i ruoli di stato: gli stati scrivibili non hanno più un ruolo di sola lettura, la finestra di ricarica usa level.battery.min`/`level.battery.max` e il contatore di energia `value.energy.produced`",
+        "es": "añadió la carpeta «packs» que faltaba, por lo que cada segmento del ID del pack tiene su propio objeto\ncorrigió las funciones estatales: los estados en los que se puede escribir ya no tienen la función `valor.*` de solo lectura, la ventana de cargos usa `level.battery.min`/`level.battery.max` y el contador de energía `value.energy.produced`",
+        "pl": "dodano brakujący obiekt folderu `packs`, więc każdy segment identyfikatora stanu pakietu ma swój własny obiekt\npoprawiono role stanu: stany zapisywalne nie mają już roli „wartości.*” tylko do odczytu, okno ładowania wykorzystuje `level.battery.min`/`level.battery.max` i licznik energii `value.energy.produced`",
+        "uk": "додано відсутній об'єкт папки `packs`, тому кожен сегмент ідентифікатора стану пакета має свій власний об'єкт\nвиправлено ролі стану: записуються стани більше не мають ролі `значення.*` лише для читання, вікно заряду використовує `level.battery.min`/`level.battery.max` та лічильник енергії `value.energy.produced`",
+        "zh-cn": "添加了缺失的 “packs” 文件夹对象，因此包状态 ID 的每个部分都有自己的对象\n更正了状态角色：可写状态不再具有只读的 “值。*” 角色，充电窗口使用 “level.battery.min”/“level.battery.max” 和能量计数器 “value.energy.produced”"
+      },
       "0.2.1": {
         "en": "fixed that an unacknowledged write to a read-only pack state could send a register write to the device\nupdated @iobroker/adapter-core to 3.4.3\nthe adapter now requires admin 7.8.23 or newer",
         "de": "behoben, dass ein nicht bestätigter Schreibzugriff auf einen nur lesbaren Pack-Datenpunkt ein Register am Gerät schreiben konnte\n@iobroker/adapter-core auf 3.4.3 aktualisiert\nder Adapter benötigt jetzt admin 7.8.23 oder neuer",

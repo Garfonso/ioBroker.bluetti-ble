@@ -147,7 +147,7 @@ setting before it gets a named state.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.2.2 (2026-10-12)
 * (Garfonso/Claude) added the missing `packs` folder object, so every segment of a pack state id has its own object
 * (Garfonso/Claude) corrected the state roles: writable states no longer carry a read-only `value.*` role, the charge window uses `level.battery.min`/`level.battery.max` and the energy counter `value.energy.produced`
 
