@@ -82,6 +82,56 @@ Consequences:
 - ts-node version is irrelevant to production — **production does not use ts-node**
   (it uses esbuild-register). ts-node is only our local test/dev runner.
 
+## Dependency: `node-ble` is an alias to a fork
+
+`package.json` pulls the BLE library as
+
+```json
+"node-ble": "npm:@naugehyde/node-ble@^1.13.5"
+```
+
+The alias keeps the import specifier `node-ble`, so `src/lib/bluetoothClient.ts`
+and the hand-written `src/lib/node-ble.d.ts` (`declare module 'node-ble'`) stay
+unchanged. **Do not "clean this up"** to a plain `node-ble` dependency.
+
+Why: upstream `node-ble` -> `dbus-next@0.10.2` declares `usocket` as an
+*optionalDependency*, and `usocket@0.3.0` lists `node-gyp: ^7.1.2` in its
+regular `dependencies` (node-gyp is a build tool and does not belong there).
+Consequences on a user's machine:
+
+- **`npm rebuild` / `iobroker rebuild` breaks.** npm prefers the nested
+  node-gyp 7 over the system one (12.x), and node-gyp 7 cannot build with a
+  modern Python - `distutils` was removed in 3.12. Users had to add a manual
+  `overrides` entry to get rebuilds working again.
+- node-gyp 7 drags in `request@2.88.2` (deprecated since 2020) and with it
+  3 critical + several further advisories.
+
+`usocket` is never used by this adapter: `node-ble` calls `systemBus()` without
+options, so `negotiateUnixFd` is false and the bus address is
+`unix:path=/var/run/dbus/system_bus_socket`. `dbus-next` takes the `params.path`
+branch, `require('usocket')` throws (no bindings built) and it falls back to
+`net.createConnection()`. So the whole subtree is dead weight that only breaks
+installs.
+
+The fork differs from upstream 1.13.0 in exactly two things: three
+`require('dbus-next')` changed to `require('@jellybrick/dbus-next')`, and an
+added `Adapter.setPowered()`. `@jellybrick/dbus-next` drops `usocket`
+altogether and ships `xml2js ^0.6.2` (upstream pins the vulnerable `^0.4.17`).
+Effect: the `node-ble` subtree goes from **122 to 17 packages**, and
+`npm audit --omit=dev` from **16 to 4** findings - the remaining 4 are
+`node-forge` via `@iobroker/adapter-core` and not ours to fix.
+
+**`overrides` is not a fix here.** npm honours `overrides` only in the *root*
+package.json. Ours is ignored as soon as the adapter is installed as a
+dependency under `/opt/iobroker`, so it would clean up this repo and CI while
+leaving every user's install broken.
+
+Switch back when upstream fixes it: issue
+[chrvadala/node-ble#64](https://github.com/chrvadala/node-ble/issues/64) has
+been open since 2024-01-31 and the last upstream code commit is 2025-01-19, so
+do not hold the release for it. Should `node-ble` ever ship without `usocket`,
+drop the alias and verify with `npm ls node-gyp`.
+
 ## Code style
 
 - **Never mix `type` and value specifiers in one import statement.** The ts-node

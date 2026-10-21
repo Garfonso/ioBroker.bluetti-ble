@@ -147,6 +147,9 @@ setting before it gets a named state.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (Garfonso/Claude) switched to a maintained `node-ble` fork, which no longer pulls in an ancient nested `node-gyp` 7. That version cannot build with Python 3.12 or newer and broke `iobroker rebuild` on systems with a current node-gyp, which users previously had to work around with a manual `overrides` entry. The dependency tree shrinks from 122 to 17 packages and no longer contains the deprecated `request`.
+
 ### 0.2.2 (2026-10-12)
 * (Garfonso/Claude) added the missing `packs` folder object, so every segment of a pack state id has its own object
 * (Garfonso/Claude) corrected the state roles: writable states no longer carry a read-only `value.*` role, the charge window uses `level.battery.min`/`level.battery.max` and the energy counter `value.energy.produced`
