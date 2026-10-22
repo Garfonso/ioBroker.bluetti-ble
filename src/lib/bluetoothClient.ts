@@ -1,5 +1,6 @@
 import { createBluetooth } from 'node-ble';
 import type { Adapter, Bluetooth, Device, GattCharacteristic } from 'node-ble';
+import type { EventEmitter } from 'node:events';
 import type { DeviceCommand } from './commands';
 import { EncryptedConnection, PassthroughConnection } from './v2/connection';
 import type { Connection } from './v2/connection';
@@ -53,6 +54,7 @@ export class BluetoothClient {
     private readonly queue: Array<() => void> = [];
     private busy = false;
     private closed = false;
+    private busErrorSeen = false;
 
     /** Advertised device name, available after connect(). */
     name?: string;
@@ -76,9 +78,19 @@ export class BluetoothClient {
 
     async connect(): Promise<void> {
         this.closed = false;
+        this.busErrorSeen = false;
         const { bluetooth, destroy } = createBluetooth();
         this.bluetooth = bluetooth;
         this.destroyBluetooth = destroy;
+
+        // The bus is not part of node-ble's public API and therefore missing from
+        // its type declarations, hence the cast.
+        const bus = (bluetooth as { dbus?: EventEmitter }).dbus;
+        if (bus) {
+            bus.on('error', (err: Error) => this.handleBusError(err));
+        } else {
+            this.log.warn('node-ble no longer exposes the D-Bus connection, bus errors cannot be handled');
+        }
 
         this.adapter = await bluetooth.defaultAdapter();
         if (!(await this.adapter.isPowered())) {
@@ -298,6 +310,32 @@ export class BluetoothClient {
             // The device rejected the request itself - don't retry.
             this.rejectPending(new ModbusError(this.notifyBuffer[2]));
         }
+    }
+
+    /**
+     * dbus-next forwards stream errors, a failed handshake and a failed "Hello"
+     * as an "error" event on the bus. Node turns an unhandled one into an
+     * uncaught exception, which would take the whole process down - in compact
+     * mode that is js-controller with every other adapter inside it. So treat a
+     * broken bus like a disconnected device and let the adapter reconnect.
+     *
+     * @param err the error dbus-next emitted on the bus
+     */
+    private handleBusError(err: Error): void {
+        if (this.closed) {
+            // disconnect() ends the socket, which races a handshake that is
+            // still in flight: dbus-next then writes to an ended stream.
+            this.log.debug(`D-Bus error while shutting down: ${err.message}`);
+            return;
+        }
+        if (this.busErrorSeen) {
+            // A dying stream usually emits more than once.
+            this.log.debug(`Further D-Bus error: ${err.message}`);
+            return;
+        }
+        this.busErrorSeen = true;
+        this.log.warn(`D-Bus connection to BlueZ failed: ${err.message}`);
+        this.handleDisconnect();
     }
 
     private handleDisconnect(): void {

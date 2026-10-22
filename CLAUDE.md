@@ -126,6 +126,15 @@ package.json. Ours is ignored as soon as the adapter is installed as a
 dependency under `/opt/iobroker`, so it would clean up this repo and CI while
 leaving every user's install broken.
 
+Bonus: unlike upstream 1.13.0 the fork ships its own type declarations
+(`node_modules/node-ble/src/index.d.ts`), so the hand-written
+`src/lib/node-ble.d.ts` was dropped. Keeping both was a trap - an ambient
+`declare module 'node-ble'` wins in a full `tsc` run, while ts-node resolves the
+shipped ones, so `npm run check` and `npm run test:ts` disagreed about the type.
+Two signatures in the shipped types are wrong (`readValue(offset?: number)` and
+`isConnected(): Promise<string>`); we do not use either, but check before
+reaching for them.
+
 Switch back when upstream fixes it: issue
 [chrvadala/node-ble#64](https://github.com/chrvadala/node-ble/issues/64) has
 been open since 2024-01-31 and the last upstream code commit is 2025-01-19, so
