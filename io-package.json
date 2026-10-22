@@ -3,6 +3,19 @@
     "name": "bluetti-ble",
     "version": "0.2.2",
     "news": {
+      "0.2.3": {
+        "en": "fixed that a failing D-Bus connection to BlueZ could crash the adapter, it now reconnects instead\nremoved an outdated nested node-gyp 7 which could not build with Python 3.12 and broke iobroker rebuild",
+        "de": "behoben, dass eine fehlgeschlagene D-Bus-Verbindung zu BlueZ den Adapter abstürzen lassen konnte, er verbindet sich nun stattdessen neu\nveraltetes verschachteltes node-gyp 7 entfernt, das sich mit Python 3.12 nicht bauen ließ und iobroker rebuild kaputt machte",
+        "ru": "исправлено: сбой подключения к BlueZ через D-Bus мог привести к аварийному завершению адаптера, теперь он вместо этого переподключается\nудалён устаревший вложенный node-gyp 7, который не собирался с Python 3.12 и ломал iobroker rebuild",
+        "pt": "corrigido: uma ligação D-Bus ao BlueZ falhada podia fazer o adaptador terminar abruptamente, agora volta a ligar-se\nremovido um node-gyp 7 aninhado e desatualizado, que não compilava com Python 3.12 e quebrava o iobroker rebuild",
+        "nl": "opgelost dat een mislukte D-Bus-verbinding met BlueZ de adapter kon laten crashen, hij maakt nu opnieuw verbinding\nverouderde geneste node-gyp 7 verwijderd, die niet kon bouwen met Python 3.12 en iobroker rebuild stukmaakte",
+        "fr": "correction : une connexion D-Bus à BlueZ en échec pouvait faire planter l'adaptateur, il se reconnecte désormais\nsuppression d'un node-gyp 7 imbriqué et obsolète, qui ne compilait pas avec Python 3.12 et cassait iobroker rebuild",
+        "it": "corretto il fatto che una connessione D-Bus a BlueZ non riuscita potesse far terminare l'adattatore, ora si riconnette\nrimosso un node-gyp 7 annidato e obsoleto, che non compilava con Python 3.12 e rompeva iobroker rebuild",
+        "es": "corregido que una conexión D-Bus a BlueZ fallida pudiera provocar el cierre inesperado del adaptador, ahora se reconecta\neliminado un node-gyp 7 anidado y obsoleto, que no compilaba con Python 3.12 y rompía iobroker rebuild",
+        "pl": "naprawiono, że nieudane połączenie D-Bus z BlueZ mogło spowodować awarię adaptera, teraz łączy się on ponownie\nusunięto przestarzały zagnieżdżony node-gyp 7, który nie kompilował się z Pythonem 3.12 i psuł iobroker rebuild",
+        "uk": "виправлено: невдале з'єднання D-Bus із BlueZ могло призвести до аварійного завершення адаптера, тепер він натомість перепідключається\nвидалено застарілий вкладений node-gyp 7, який не збирався з Python 3.12 і ламав iobroker rebuild",
+        "zh-cn": "修复了与 BlueZ 的 D-Bus 连接失败可能导致适配器崩溃的问题，现在会改为重新连接\n移除了过时的嵌套 node-gyp 7，它无法在 Python 3.12 下编译，并会导致 iobroker rebuild 失败"
+      },
       "0.2.2": {
         "en": "added the missing `packs` folder object, so every segment of a pack state id has its own object\ncorrected the state roles: writable states no longer carry a read-only `value.*` role, the charge window uses `level.battery.min`/`level.battery.max` and the energy counter `value.energy.produced`",
         "de": "fehlendes Ordnerobjekt „Packs“ hinzugefügt, sodass jede Packstatus-ID ein Objekt hat\nDie Statusrollen wurden korrigiert: schreibbare Zustände sind nicht mehr lesbar, das Ladefenster nutzt `level.battery.min`/`level.battery.max` und der Energiezähler `value.energy.produced`",
