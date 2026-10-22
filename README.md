@@ -147,7 +147,7 @@ setting before it gets a named state.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.2.3 (2026-10-22)
 * (Garfonso/Claude) a failing D-Bus connection to BlueZ no longer crashes the adapter process. The bus error is logged and handled like a disconnected device, so the adapter reconnects instead of dying - which in compact mode would have taken down the js-controller with every other adapter in it.
 * (Garfonso/Claude) switched to a maintained `node-ble` fork, which no longer pulls in an ancient nested `node-gyp` 7. That version cannot build with Python 3.12 or newer and broke `iobroker rebuild` on systems with a current node-gyp, which users previously had to work around with a manual `overrides` entry. The dependency tree shrinks from 122 to 17 packages and no longer contains the deprecated `request`.
 
@@ -166,13 +166,6 @@ setting before it gets a named state.
 
 ### 0.1.1 (2026-06-23)
 * (Garfonso/Claude) add very experimental support for APEX 300.
-
-### 0.1.0 (2026-06-19)
-* (Garfonso/Claude) tolerate issues in BLE connection better.
-* (Garfonso/Claude) add support for reverse engineering modbus registers via sendTo commands
-* (Garfonso/Claude) make modbus polling more robust.
-* (Garfonso/Claude) add experimental support for encrypted (v2) devices
-* (Garfonso/Claude) initial release
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
