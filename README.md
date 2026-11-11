@@ -26,8 +26,9 @@
 > device type, …) into the new instance, update scripts/visualizations from
 > `bluetti-battery.0.*` to `bluetti-ble.0.*`, then remove the old adapter.
 
-Monitor and control Bluetti power stations / batteries over Bluetooth Low Energy
-(MODBUS-over-BLE). This is a Node.js/TypeScript port of the protocol from
+Monitor and control [Bluetti](https://www.bluettipower.com) power stations /
+batteries over Bluetooth Low Energy (MODBUS-over-BLE). This is a
+Node.js/TypeScript port of the protocol from
 [bluetti_mqtt](https://github.com/warhammerkid/bluetti_mqtt), integrated directly
 into ioBroker so no extra Python service or MQTT broker is required.
 
