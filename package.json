@@ -1,7 +1,7 @@
 {
   "name": "iobroker.bluetti-ble",
   "version": "0.2.3",
-  "description": "bluetti",
+  "description": "Monitor and control Bluetti power stations locally over Bluetooth Low Energy (BLE)",
   "author": {
     "name": "Garfonso",
     "email": "garfonso@mobo.info"
