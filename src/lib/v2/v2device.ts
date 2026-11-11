@@ -146,6 +146,7 @@ export function buildV2Device(type = 'V2'): DeviceDefinition {
             new ReadHoldingRegisters(PACK_MAIN_INFO, 31),
         ],
         packPollingCommands: [],
+        derivedFields: ['ac_output_on', 'dc_output_on'],
         postParse: (parsed: Record<string, FieldValue>): void => {
             const ctrl = parsed.ctrl_status;
             if (typeof ctrl === 'number') {

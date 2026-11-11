@@ -7,7 +7,7 @@ import { ReadHoldingRegisters, WriteSingleRegister } from './lib/commands';
 import type { DeviceField, FieldValue } from './lib/fields';
 import { stateMeta } from './lib/stateroles';
 import { BluetoothClient, ModbusError } from './lib/bluetoothClient';
-import { buildDevice, detectFromName, SUPPORTED_TYPES } from './lib/devices';
+import { buildDevice, coveredNames, detectFromName, SUPPORTED_TYPES } from './lib/devices';
 import type { DeviceDefinition } from './lib/devices';
 
 const MAC_RE = /^([0-9a-f]{2}:){5}[0-9a-f]{2}$/i;
@@ -330,7 +330,7 @@ class BluettiBle extends utils.Adapter {
             common: { name: `Battery pack ${pack}` },
             native: {},
         });
-        const packNames = this.coveredNames(this.device, this.device.packPollingCommands);
+        const packNames = coveredNames(this.device, this.device.packPollingCommands);
         for (const field of packNames.values()) {
             await this.createStateObject(`packs.${pack}.`, field, this.device);
         }
@@ -346,34 +346,20 @@ class BluettiBle extends utils.Adapter {
     // --- Object creation ------------------------------------------------------
 
     private async createObjects(device: DeviceDefinition): Promise<void> {
-        const rootNames = this.coveredNames(device, device.pollingCommands);
+        const rootNames = coveredNames(device, device.pollingCommands);
+        // Fields that postParse fills in: their address is never polled, so
+        // coveredNames does not see them, but they still need a state.
+        for (const name of device.derivedFields ?? []) {
+            const field = device.struct.fields.find(f => f.name === name);
+            if (field && !rootNames.has(name)) {
+                rootNames.set(name, field);
+            }
+        }
         for (const field of rootNames.values()) {
             await this.createStateObject('', field, device);
         }
         // Pack channels/states are created on demand as packs respond (see
         // ensurePackObjects), so disconnected packs do not produce empty objects.
-    }
-
-    /**
-     * Unique field-name -> representative field, for fields covered by the commands.
-     *
-     * @param device
-     * @param cmds
-     */
-    private coveredNames(device: DeviceDefinition, cmds: ReadHoldingRegisters[]): Map<string, DeviceField> {
-        const map = new Map<string, DeviceField>();
-        const bpa = device.struct.bytesPerAddress;
-        for (const field of device.struct.fields) {
-            const span = Math.ceil(field.byteLength / bpa);
-            const covered = cmds.some(c => {
-                const units = (c.quantity * 2) / bpa; // response is quantity*2 bytes
-                return field.address >= c.startingAddress && field.address + span - 1 <= c.startingAddress + units - 1;
-            });
-            if (covered && !map.has(field.name)) {
-                map.set(field.name, field);
-            }
-        }
-        return map;
     }
 
     private async createStateObject(prefix: string, field: DeviceField, device: DeviceDefinition): Promise<void> {

@@ -4,7 +4,7 @@
  */
 import { ReadHoldingRegisters } from './commands';
 import { DeviceStruct } from './fields';
-import type { EnumMap, FieldValue } from './fields';
+import type { DeviceField, EnumMap, FieldValue } from './fields';
 import { buildV2Device } from './v2/v2device';
 
 // --- Shared enums (value -> name) ---------------------------------------------
@@ -44,6 +44,36 @@ export interface DeviceDefinition {
     experimental?: boolean;
     /** Optional hook to derive virtual fields after parsing (e.g. v2 bitfields). */
     postParse?: (parsed: Record<string, FieldValue>) => void;
+    /**
+     * Names of struct fields that need a state although no polling command
+     * covers their address, because {@link postParse} supplies their value. The
+     * v2 AC/DC switches sit at write-only addresses and are read back from the
+     * ctrl_status bitfield, so without this they would get no object at all.
+     */
+    derivedFields?: string[];
+}
+
+/**
+ * Unique field-name -> representative field, for the fields the given commands
+ * actually read. Used to decide which states a device gets.
+ *
+ * @param device the device definition whose struct is inspected
+ * @param cmds the polling commands to check the field addresses against
+ */
+export function coveredNames(device: DeviceDefinition, cmds: ReadHoldingRegisters[]): Map<string, DeviceField> {
+    const map = new Map<string, DeviceField>();
+    const bpa = device.struct.bytesPerAddress;
+    for (const field of device.struct.fields) {
+        const span = Math.ceil(field.byteLength / bpa);
+        const covered = cmds.some(c => {
+            const units = (c.quantity * 2) / bpa; // response is quantity*2 bytes
+            return field.address >= c.startingAddress && field.address + span - 1 <= c.startingAddress + units - 1;
+        });
+        if (covered && !map.has(field.name)) {
+            map.set(field.name, field);
+        }
+    }
+    return map;
 }
 
 type Builder = () => DeviceDefinition;
