@@ -10,6 +10,11 @@ import { BluetoothClient, ModbusError } from './lib/bluetoothClient';
 import { buildDevice, coveredNames, detectFromName, SUPPORTED_TYPES } from './lib/devices';
 import type { DeviceDefinition } from './lib/devices';
 
+// Bounds mirror admin/jsonConfig.json (min/max of the pollInterval field).
+const POLL_INTERVAL_MIN = 2;
+const POLL_INTERVAL_MAX = 3600;
+const POLL_INTERVAL_DEFAULT = 10;
+
 const MAC_RE = /^([0-9a-f]{2}:){5}[0-9a-f]{2}$/i;
 const PACK_SELECT_REGISTER = 3006;
 /** Time to wait after switching packs before the new pack data is readable. */
@@ -49,8 +54,17 @@ class BluettiBle extends utils.Adapter {
             this.log.error(`Invalid or missing MAC address: "${mac}". Configure it in the adapter settings.`);
             return;
         }
+        // Keep the interval inside the bounds the admin UI offers, so a value
+        // edited past the form (or a broken config) cannot produce a hot poll
+        // loop or a timer that effectively never fires.
         if (!(this.config.pollInterval > 0)) {
-            this.config.pollInterval = 10;
+            this.config.pollInterval = POLL_INTERVAL_DEFAULT;
+        } else if (this.config.pollInterval < POLL_INTERVAL_MIN) {
+            this.log.warn(`Polling interval ${this.config.pollInterval}s is too short, using ${POLL_INTERVAL_MIN}s.`);
+            this.config.pollInterval = POLL_INTERVAL_MIN;
+        } else if (this.config.pollInterval > POLL_INTERVAL_MAX) {
+            this.log.warn(`Polling interval ${this.config.pollInterval}s is too long, using ${POLL_INTERVAL_MAX}s.`);
+            this.config.pollInterval = POLL_INTERVAL_MAX;
         }
 
         this.subscribeStates('*');
