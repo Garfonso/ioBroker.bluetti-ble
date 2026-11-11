@@ -91,8 +91,8 @@ Consequences:
 ```
 
 The alias keeps the import specifier `node-ble`, so `src/lib/bluetoothClient.ts`
-and the hand-written `src/lib/node-ble.d.ts` (`declare module 'node-ble'`) stay
-unchanged. **Do not "clean this up"** to a plain `node-ble` dependency.
+imports it unchanged. **Do not "clean this up"** to a plain `node-ble`
+dependency.
 
 Why: upstream `node-ble` -> `dbus-next@0.10.2` declares `usocket` as an
 *optionalDependency*, and `usocket@0.3.0` lists `node-gyp: ^7.1.2` in its

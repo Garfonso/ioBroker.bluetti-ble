@@ -148,6 +148,11 @@ setting before it gets a named state.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (Garfonso/Claude) V2 and APEX 300 now get the `ac_output_on` and `dc_output_on` states. Their values were computed but thrown away, because no object existed for them - so the AC and DC output were missing both as a reading and as a switch
+* (Garfonso/Claude) the polling interval is now limited in code to the 2 to 3600 seconds the settings dialog offers, and a corrected value is logged
+* (Garfonso/Claude) added a link to the manufacturer in the README, reworded the Portuguese, Dutch and French adapter title and gave the npm package a real description
+
 ### 0.2.3 (2026-10-22)
 * (Garfonso/Claude) a failing D-Bus connection to BlueZ no longer crashes the adapter process. The bus error is logged and handled like a disconnected device, so the adapter reconnects instead of dying - which in compact mode would have taken down the js-controller with every other adapter in it.
 * (Garfonso/Claude) switched to a maintained `node-ble` fork, which no longer pulls in an ancient nested `node-gyp` 7. That version cannot build with Python 3.12 or newer and broke `iobroker rebuild` on systems with a current node-gyp, which users previously had to work around with a manual `overrides` entry. The dependency tree shrinks from 122 to 17 packages and no longer contains the deprecated `request`.
